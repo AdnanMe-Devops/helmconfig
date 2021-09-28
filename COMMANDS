@@ -1,0 +1,157 @@
+http://54.188.172.109:8080   54.188.172.109
+
+ls -la
+docker build -t cloudacademydevops/flaskapp .
+
+docker images 
+
+sudo minikube start --vm-driver=none
+kubectl create ns cloudacademy
+
+kubectl config set-context --current --namespace=cloudacademy
+
+cd ../k8s && ls -la 
+
+ngix yml 
+kubectl apply -f nginx.configmap.yaml
+kubectl get configmaps 
+
+deployment 
+yml 
+
+kubectl apply -f deployment.yaml
+kubectl get deploy 
+kubectl get pods
+
+POD_NAME=`kubectl get pods -o jsonpath='{.items[0].metadata.name}'`
+echo $POD_NAME
+
+kubectl describe pod $POD_NAME
+
+docker images | grep cloudacademydevops
+
+sed -i 's/cloudacademydevops\/flask/cloudacademydevops\/flaskapp/g' deployment.yaml
+
+kubectl apply -f deployment.yaml
+
+kubectl get deploy 
+
+kubectl expose deployment frontend --port=80 --target-port=80
+
+kubectl get svc frontend 
+
+FRONTEND_SERVICE_IP=`kubectl get service/frontend -o jsonpath='{.spec.clusterIP}'`
+echo $FRONTEND_SERVICE_IP
+
+curl -i http://$FRONTEND_SERVICE_IP
+
+kubectl apply -f deployment.yaml
+
+curl -i http://$FRONTEND_SERVICE_IP
+
+kubectl get pods 
+
+POD_NAME=`kubectl get pods -o jsonpath='{.items[0].metadata.name}'`
+echo $POD_NAME
+
+kubectl describe pod $POD_NAME
+
+kubectl apply -f deployment.yaml
+
+kubectl get deploy 
+
+kubectl expose deployment frontend --port=80 --target-port=80
+
+kubectl get svc frontend 
+
+FRONTEND_SERVICE_IP=`kubectl get service/frontend -o jsonpath='{.spec.clusterIP}'`
+echo $FRONTEND_SERVICE_IP
+
+
+curl -i http://$FRONTEND_SERVICE_IP
+
+kubectl exec -it $FRONTEND_POD_NAME -c nginx -- ls -la /var/log/nginx/
+
+kubectl logs $FRONTEND_POD_NAME nginx
+
+kubectl logs $FRONTEND_POD_NAME flask
+
+helm
+cd ..
+
+helm create test-app
+sudo yum install -y tree
+tree test-app/
+
+helm template test-app/
+
+kubectl delete deploy,pods,svc --all
+
+helm template ./app
+
+helm template --name cloudacademy ./app | kubectl apply -f -
+
+kubectl get svc
+
+CLOUDACADEMY_APP_IP=`kubectl get service/cloudacademy-app -o jsonpath='{.spec.clusterIP}'`
+echo $CLOUDACADEMY_APP_IP
+
+curl -i http://$CLOUDACADEMY_APP_IP
+
+cp app/values.yaml app/values.dev.yaml
+cp app/values.yaml app/values.prod.yaml
+
+
+helm template --name cloudacademy -f ./app/values.dev.yaml ./app | kubectl apply -f -
+
+curl -i http://$CLOUDACADEMY_APP_IP
+
+helm template --name cloudacademy -f ./app/values.prod.yaml ./app | kubectl apply -f -
+
+curl -i http://$CLOUDACADEMY_APP_IP 
+
+
+
+
+
+
+
+CD..
+HELM CREATE TEST-APP
+tree test-app/
+helm template test-app/
+kubectl deöete deploy,pods,svs --all
+deployment file update ....value.yml
+helm template ./app
+helm template --name cloudac /.app /kubectl apply f
+kubectl get svc 
+CLOUDACADEMY_APP_IP=`kubectl get service/cloudacademy-app -o jsonpath='{.spec.clusterIP}'`
+echo $CLOUDACADEMY_APP_IP
+curl -i http://#cloudacedu-app-ip
+cp app/values.yml app/values.dev.yml
+cp app 
+helm template ./app
+
+helm template --name cloudacademy ./app | kubectl apply -f -
+
+kubectl get svc
+
+CLOUDACADEMY_APP_IP=`kubectl get service/cloudacademy-app -o jsonpath='{.spec.clusterIP}'`
+echo $CLOUDACADEMY_APP_IP
+
+curl -i http://$CLOUDACADEMY_APP_IP
+
+cp app/values.yaml app/values.dev.yaml
+cp app/values.yaml app/values.prod.yaml
+
+helm template --name cloudacademy -f ./app/values.dev.yaml ./app | kubectl apply -f -
+
+curl -i http://$CLOUDACADEMY_APP_IP
+
+helm template --name cloudacademy -f ./app/values.prod.yaml ./app | kubectl apply -f -
+
+curl -i http://$CLOUDACADEMY_APP_IP 
+
+
+
+
